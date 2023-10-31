@@ -9,7 +9,7 @@ quality_gate:
   performance:
     - throughput:
         error:
-            unstable: -1
+            unstable: ''
             failed: -1
         response:
             unstable: ''
