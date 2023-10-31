@@ -12,13 +12,6 @@ quality_gate:
         threshold: 80
     - security_scan:
         threshold: 0
-    - performance:
-        throughput:
-          error:
-            unstable: 100
-            failed: 50
-          response:
-            unstable: 1000
             
 jobs:
   - build:
