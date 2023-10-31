@@ -1,0 +1,30 @@
+stages:
+  - build
+  - test
+  - deploy
+ 
+quality_gate:
+  stage: test
+  rules:
+    - code_quality:
+        threshold: 90
+    - unit_test_coverage:
+        threshold: 80
+    - security_scan:
+        threshold: 0
+ 
+jobs:
+  - build:
+      stage: build
+      script:
+        - # Build your project here
+ 
+  - test:
+      stage: test
+      script:
+        - # Run your unit tests and other tests here
+ 
+  - deploy:
+      stage: deploy
+      script:
+        - # Deploy your application to the production environment
