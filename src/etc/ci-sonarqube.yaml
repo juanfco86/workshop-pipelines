@@ -115,7 +115,7 @@ spec:
             - name: POSTGRES_PASSWORD
               value: "sonar99sonar"
           securityContext:
-            runAsUser: 501
+            runAsUser: 0
           volumeMounts:
             - name: ci-sonarqube-data
               mountPath: /var/lib/postgresql/data
@@ -149,6 +149,8 @@ spec:
       labels:
         app: ci-sonarqube
     spec:
+      securityContext:
+          fsGroup: 1000
       containers:
         - name: sonarqube
           image: docker.io/sonarqube:9.9.1-community
