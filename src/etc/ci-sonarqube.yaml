@@ -11,7 +11,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/data/ci-sonarqube-data"
+    path: "/opt/sonarqube/data"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -40,7 +40,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/data/ci-sonarqube-extensions"
+    path: "/opt/sonarqube/extensions"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -69,7 +69,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/data/ci-sonarqube-esdata"
+    path: "/opt/sonarqube/data"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
