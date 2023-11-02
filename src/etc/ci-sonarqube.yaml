@@ -106,7 +106,7 @@ spec:
     spec:
       initContainers:
         - name: init
-          image: busybox
+          image: docker.io/busybox
           command:
           - sysctl
           - -w
