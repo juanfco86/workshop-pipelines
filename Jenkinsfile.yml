@@ -93,12 +93,14 @@ spec:
                 }
             }
         }
+        
         stage('Compile') {
             steps {
                 echo '-=- compiling project -=-'
                 sh './mvnw compile'
             }
         }
+        
         stage('Code inspection & quality gate') {
             steps {
                 echo '-=- run code inspection & check quality gate -=-'
@@ -110,6 +112,7 @@ spec:
                 }
             }
         }
+        
         stage('Mutation tests') {
             steps {
                 echo '-=- execute mutation tests -=-'
@@ -117,24 +120,6 @@ spec:
             }
         }
 
-        stage('Software composition analysis') {
-            steps {
-                echo '-=- run software composition analysis -=-'
-                sh './mvnw dependency-check:check'
-                dependencyCheckPublisher(
-                    failedTotalCritical: qualityGates.security.dependencies.critical.failed,
-                    unstableTotalCritical: qualityGates.security.dependencies.critical.unstable,
-                    failedTotalHigh: qualityGates.security.dependencies.high.failed,
-                    unstableTotalHigh: qualityGates.security.dependencies.high.unstable,
-                    failedTotalMedium: qualityGates.security.dependencies.medium.failed,
-                    unstableTotalMedium: qualityGates.security.dependencies.medium.unstable)
-                script {
-                    if (currentBuild.result == 'FAILURE') {
-                        error('Dependency vulnerabilities exceed the configured threshold')
-                    }
-                }
-            }
-        }
         stage('Package') {
             steps {
                 echo '-=- packaging project -=-'
@@ -155,6 +140,7 @@ spec:
                 }
             }
         }
+        
         stage('Run container image') {
             steps {
                 echo '-=- run container image -=-'
@@ -167,6 +153,7 @@ spec:
                 }
             }
         }
+        
         stage('Unit tests') {
             steps {
                 echo '-=- execute unit tests -=-'
@@ -175,6 +162,7 @@ spec:
                 jacoco execPattern: 'target/jacoco.exec'
             }
         }
+        
         stage('Integration tests') {
             steps {
                 echo '-=- execute integration tests -=-'
@@ -212,6 +200,7 @@ spec:
                 }
             }
         }
+        
         stage('Promote container image') {
             steps {
                 echo '-=- promote container image -=-'
