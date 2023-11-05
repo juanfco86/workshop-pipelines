@@ -3,53 +3,47 @@ pipeline {
         kubernetes {
             defaultContainer 'jdk'
             yaml '''
-apiVersion: v1
-kind: Pod
-spec:
-  containers:
-    - name: jdk
-      image: docker.io/eclipse-temurin:20.0.1_9-jdk
-      command:
-        - cat
-      tty: true
-      volumeMounts:
-        - name: m2-cache
-          mountPath: /root/.m2
-    - name: podman
-      image: quay.io/containers/podman:v4.5.1
-      command:
-        - cat
-      tty: true
-      securityContext:
-        runAsUser: 0
-        privileged: true
-    - name: kubectl
-      image: docker.io/bitnami/kubectl:1.27.3
-      command:
-        - cat
-      tty: true
-      securityContext:
-        runAsUser: 0
-        privileged: true
-  volumes:
-    - name: m2-cache
-      hostPath:
-        path: /data/m2-cache
-        type: DirectoryOrCreate
-        - name: lhci
-      image: docker.io/patrickhulce/lhci-client:0.12.0
-      command:
-        - cat
-      tty: true
-      securityContext:
-        runAsUser: 0
-        privileged: true
-  volumes:
-    - name: m2-cache
-        hostPath:
-            path: /data/m2-cache
-            type: DirectoryOrCreate
-'''
+            apiVersion: v1
+            kind: Pod
+            spec:
+              containers:
+                - name: jdk
+                  image: docker.io/eclipse-temurin:20.0.1_9-jdk
+                  command:
+                    - cat
+                  tty: true
+                  volumeMounts:
+                    - name: m2-cache
+                      mountPath: /root/.m2
+                - name: podman
+                  image: quay.io/containers/podman:v4.5.1
+                  command:
+                    - cat
+                  tty: true
+                  securityContext:
+                    runAsUser: 0
+                    privileged: true
+                - name: kubectl
+                  image: docker.io/bitnami/kubectl:1.27.3
+                  command:
+                    - cat
+                  tty: true
+                  securityContext:
+                    runAsUser: 0
+                    privileged: true
+                - name: lhci
+                  image: docker.io/patrickhulce/lhci-client:0.12.0
+                  command:
+                    - cat
+                  tty: true
+                  securityContext:
+                    runAsUser: 0
+                    privileged: true
+              volumes:
+                - name: m2-cache
+                  hostPath:
+                    path: /data/m2-cache
+                    type: DirectoryOrCreate
         }
     }
  
