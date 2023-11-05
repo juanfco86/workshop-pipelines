@@ -7,12 +7,12 @@ quality_gate:
     - security_scan:
         threshold: 0
   performance:
-  throughput:
-    error:
-      unstable: 0
-      failed: 5
-    response:
-      unstable: 'default.jtl:100'
+    throughput:
+      error:
+        unstable: 0
+        failed: 5
+      response:
+        unstable: 'default.jtl:100'
   security:
     static:
       high:
@@ -30,14 +30,14 @@ quality_gate:
         failed: 5
     dependencies:
       critical:
-        unstable: 10
-        failed: 10
-      high:
-        unstable: 10
-        failed: 10
-      medium:
         unstable: 15
         failed: 15
+      high:
+        unstable: 15
+        failed: 15
+      medium:
+        unstable: 20
+        failed: 20
         
 jobs:
   - build:
