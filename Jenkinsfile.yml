@@ -36,6 +36,19 @@ spec:
       hostPath:
         path: /data/m2-cache
         type: DirectoryOrCreate
+        - name: lhci
+      image: docker.io/patrickhulce/lhci-client:0.12.0
+      command:
+        - cat
+      tty: true
+      securityContext:
+        runAsUser: 0
+        privileged: true
+  volumes:
+    - name: m2-cache
+        hostPath:
+            path: /data/m2-cache
+            type: DirectoryOrCreate
 '''
         }
     }
@@ -59,6 +72,8 @@ spec:
         // credentials
         KUBERNETES_CLUSTER_CRED_ID = 'k3s-lima-vm-kubeconfig'
         CONTAINER_REGISTRY_CRED = credentials("docker-hub-$IMAGE_ORG")
+        LIGHTHOUSE_TOKEN = credentials("ci-lighthouse-token-$APP_NAME")
+        LIGHTHOUSE_URL = credentials('ci-lighthouse-url')
     }
     stages {
         stage('Prepare environment') {
@@ -179,6 +194,22 @@ spec:
                 sh "curl --retry 10 --retry-connrefused --connect-timeout 5 --max-time 5 ${EPHTEST_BASE_URL}actuator/health"
                 sh "./mvnw jmeter:configure@configuration jmeter:jmeter jmeter:results -Djmeter.target.host=$EPHTEST_CONTAINER_NAME -Djmeter.target.port=$APP_LISTENING_PORT -Djmeter.target.root=$APP_CONTEXT_ROOT"
                 perfReport sourceDataFiles: 'target/jmeter/results/*.csv'
+            }
+        }
+
+        stage('Web page performance analysis') {
+            steps {
+                echo '-=- execute web page performance analysis -=-'
+                container('lhci') {
+                    sh """
+                      cd $WORKSPACE
+                      git config --global --add safe.directory $WORKSPACE
+                      export LHCI_BUILD_CONTEXT__CURRENT_BRANCH=$GIT_BRANCH
+                      lhci collect --collect.settings.chromeFlags='--no-sandbox' --url ${EPHTEST_BASE_URL}hello
+                      lhci assert --preset=lighthouse:recommended --includePassedAssertions
+                      lhci upload --token $LIGHTHOUSE_TOKEN --serverBaseUrl $LIGHTHOUSE_URL --ignoreDuplicateBuildFailure
+                    """
+                }
             }
         }
 
