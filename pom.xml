@@ -10,7 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>workshop-pipelines</name>
+    <name>workshop-pipeline</name>
     <description>Java + Maven + Spring Boot application to be used as an example
                  for the workshop on Jenkins CI/CD pipelines.</description>
 
