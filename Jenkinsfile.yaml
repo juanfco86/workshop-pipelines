@@ -206,6 +206,7 @@ spec:
         stage('Software composition analysis') {
             steps {
                 echo '-=- run software composition analysis -=-'
+                sh 'mvn clean install  org.owasp:dependency-check-maven'
                 sh './mvnw dependency-check:check'
                 dependencyCheckPublisher(
                     failedTotalCritical: qualityGates.security.dependencies.critical.failed,
