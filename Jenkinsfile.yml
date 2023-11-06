@@ -122,7 +122,8 @@ spec:
 
         stage('Software composition analysis') {
             steps {
-                echo '-=- run software composition analysis -=-'
+                echo '-=- run software composition analysis -=-'ç
+                sh './mvn dependency-check:purge dependency-check:update-only'
                 sh './mvnw dependency-check:check'
                 dependencyCheckPublisher(
                     failedTotalCritical: qualityGates.security.dependencies.critical.failed,
