@@ -122,7 +122,7 @@ spec:
 
         stage('Software composition analysis') {
             steps {
-                echo '-=- run software composition analysis -=-'ç
+                echo '-=- run software composition analysis -=-'
                 sh './mvn dependency-check:purge dependency-check:update-only'
                 sh './mvnw dependency-check:check'
                 dependencyCheckPublisher(
