@@ -209,9 +209,9 @@ spec:
                 echo 'OWASP'
                 sh 'ls /root/.m2/repository/org/owasp'
                 echo 'ORG'
-                sh 'ls /root/.m2/repository/org/owasp/dependency-check-utils/8.3.1/_remote.repositories'
+                sh 'rm -r /root/.m2/repository/org/owasp/dependency-check-utils/8.3.1'
                 echo 'DATA'
-                sh 'ls /root/.m2/repository/org/owasp/dependency-check-data/7.0'
+                sh 'rm -r /root/.m2/repository/org/owasp/dependency-check-data/7.0'
                 sh './mvnw dependency-check:check'
                 dependencyCheckPublisher(
                     failedTotalCritical: qualityGates.security.dependencies.critical.failed,
