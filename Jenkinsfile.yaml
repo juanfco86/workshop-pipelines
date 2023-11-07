@@ -206,9 +206,14 @@ spec:
         stage('Software composition analysis') {
             steps {
                 echo '-=- run software composition analysis -=-'
-                echo 'SRC'
-                sh 'ls /home/jenkins/agent/workspace/k3s-config-enviroments-test/src/etc'
-                sh 'mvn dependency-check:purge dependency-check:update-only'
+                echo 'k3s'
+                sh 'ls /home/jenkins/agent/workspace/k3s-config-enviroments-test'
+                echo 'jenkins'
+                sh 'ls /home/jenkins'
+                echo 'agent'
+                sh 'ls /home/jenkins/agent'
+                echo 'workspace'
+                sh 'ls /home/jenkins/agent/workspace/k3s-config-enviroments-test'
                 sh './mvnw dependency-check:check'
                 dependencyCheckPublisher(
                     failedTotalCritical: qualityGates.security.dependencies.critical.failed,
