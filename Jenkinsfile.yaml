@@ -206,11 +206,12 @@ spec:
         stage('Software composition analysis') {
             steps {
                 echo '-=- run software composition analysis -=-'
+                echo 'OWASP'
+                sh 'ls /root/.m2/repository/org/owasp'
                 echo 'ORG'
                 sh 'ls /root/.m2/repository/org/owasp/dependency-check-utils/8.3.1/_remote.repositories'
-                echo 'ORG'
-                sh 'ls /root/.m2/repository/org/owasp/dependency-check-utils/8.3.1/dependency-check-utils-8.3.1.jar'
-                sh 'ls /root/.m2/repository/org/owasp/dependency-check-utils/8.3.1/dependency-check-utils-8.3.1.pom'
+                echo 'DATA'
+                sh 'ls /root/.m2/repository/org/owasp/dependency-check-data/7.0'
                 sh './mvnw dependency-check:check'
                 dependencyCheckPublisher(
                     failedTotalCritical: qualityGates.security.dependencies.critical.failed,
