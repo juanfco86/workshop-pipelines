@@ -207,9 +207,7 @@ spec:
             steps {
                 echo '-=- run software composition analysis -=-'
                 echo 'ORG'
-                sh 'ls /root/.m2/repository/org'
-                echo 'find'
-                sh 'find /home/jenkins -type d -name "org"'
+                sh 'ls /root/.m2/repository/org/owasp/dependency-check-utils/8.3.1'
                 sh './mvnw dependency-check:check'
                 dependencyCheckPublisher(
                     failedTotalCritical: qualityGates.security.dependencies.critical.failed,
