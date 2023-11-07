@@ -207,6 +207,7 @@ spec:
             steps {
                 echo '-=- run software composition analysis -=-'
                 sh 'pwd'
+                sh 'ls /home/jenkins/agent/workspace/k3s-config-enviroments-test'
                 sh './mvnw dependency-check:check'
                 dependencyCheckPublisher(
                     failedTotalCritical: qualityGates.security.dependencies.critical.failed,
