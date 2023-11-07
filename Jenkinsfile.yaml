@@ -206,10 +206,6 @@ spec:
         stage('Software composition analysis') {
             steps {
                 echo '-=- run software composition analysis -=-'
-                echo 'VAR'
-                sh 'ls /var/home'
-                echo 'VAR JENKINS'
-                sh 'ls /var/home/jenkins'
                 echo 'SRC'
                 sh 'ls /home/jenkins/agent/workspace/k3s-config-enviroments-test/src/etc'
                 sh 'mvn dependency-check:purge dependency-check:update-only'
