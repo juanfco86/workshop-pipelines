@@ -207,7 +207,10 @@ spec:
             steps {
                 echo '-=- run software composition analysis -=-'
                 echo 'ORG'
-                sh 'ls /root/.m2/repository/org/owasp/dependency-check-utils/8.3.1'
+                sh 'ls /root/.m2/repository/org/owasp/dependency-check-utils/8.3.1/_remote.repositories'
+                echo 'ORG'
+                sh 'ls /root/.m2/repository/org/owasp/dependency-check-utils/8.3.1/dependency-check-utils-8.3.1.jar'
+                sh 'ls /root/.m2/repository/org/owasp/dependency-check-utils/8.3.1/dependency-check-utils-8.3.1.pom'
                 sh './mvnw dependency-check:check'
                 dependencyCheckPublisher(
                     failedTotalCritical: qualityGates.security.dependencies.critical.failed,
